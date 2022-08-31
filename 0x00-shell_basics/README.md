@@ -23,4 +23,6 @@ Today I am learning shell basics and this folder contains all my scripts for thi
 
 **9-firstdirdeletion:** *This file contains a script that delete the directory my_first_directory that is in the /tmp directory*
 
-**10-back:** * This fle contains a script that changes the working directory to the previous one* 
+**10-back:** *This file contains a script that changes the working directory to the previous one*
+
+**11-lists** *This  file contains a script that lists all files (even ones with names beginning with a period character, which are normally hidden) in the current directory and the parent of the working directory and the /boot directory*
