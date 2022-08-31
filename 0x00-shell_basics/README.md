@@ -9,3 +9,8 @@ Today I am learning shell basics and this folder contains all my scripts for thi
 **3-listfiles:** _This file contains a script that display current directory contents in a long format_
 
 **4-listmorefiles:** _This file contains a script that display current directory contents, including hidden files (starting with .). Using the long format_
+
+**5-listfilesdigitonly:** _ This file contains a script that display the current directory contents in_
+ * Long format
+ * with user and group IDs displayed numerically
+ * And hidden files (starting with .)
