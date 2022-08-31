@@ -16,3 +16,5 @@ Today I am learning shell basics and this folder contains all my scripts for thi
  * And hidden files (starting with .)
 
 **6-firstdirectory:** *This file contains a script to create a directory named my_first_directory in the /tmp/ directory*
+
+## 7-movethatfile: ## *This file contains a scriot to Move the file betty from /tmp/ to /tmp/my_first_directory* 
