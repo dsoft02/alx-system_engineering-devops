@@ -19,4 +19,6 @@ Today I am learning shell basics and this folder contains all my scripts for thi
 
 **7-movethatfile:** *This file contains a script that move the file betty from /tmp/ to /tmp/my_first_directory* 
 
-**8-firstdelete:** * This file contains a script that delete the file betty from /tmp/my_first_directory* 
+**8-firstdelete:** *This file contains a script that delete the file betty from /tmp/my_first_directory*
+
+**9-firstdirdeletion:** *This file contains a script that delete the directory my_first_directory that is in the /tmp directory*  
