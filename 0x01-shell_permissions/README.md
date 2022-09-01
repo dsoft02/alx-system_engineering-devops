@@ -26,4 +26,6 @@
 -rwxr-x-wx 1 julien julien 23 Sep 20 14:25 hello
 ```
 
+[10-mirror_permissions](10-mirror_permissions) - Script that sets the mode of the file hello the same as olleh’s mode.
+
 
