@@ -16,4 +16,7 @@
 
 [7-everybody](7-everybody) - Script that adds execution permission to the owner, the group owner and the other users, to the file hello
 
-
+[8-James_Bond](8-James_Bond) - Script that sets the permission to the file hello as follows:
+...* Owner: no permission at all
+...* Group: no permission at all
+...* Other users: all the permissions
