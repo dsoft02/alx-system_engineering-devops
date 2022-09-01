@@ -12,4 +12,6 @@
 
 [5-execute](5-execute) - Script that adds execute permission to the owner of the file hello.
 
+[6-multiple_permissions](6-multiple_permissions) - Script that adds execute permission to the owner and the group owner, and read permission to other users, to the file hello.
+
 
