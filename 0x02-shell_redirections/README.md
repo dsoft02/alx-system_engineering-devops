@@ -7,4 +7,6 @@
 
 [2-hellofile](./2-hellofile) - script that display the content of the /etc/passwd file.
 
+[3-twofiles](./3-twofiles) - script that display the content of /etc/passwd and /etc/hosts
+
 
