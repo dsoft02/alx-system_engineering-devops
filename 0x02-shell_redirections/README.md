@@ -11,4 +11,6 @@
 
 [4-lastlines](./4-lastlines) - script that display the last 10 lines of /etc/passwd
 
+[5-firstlines](./5-firstlines) - script that display the first 10 lines of /etc/passwd
+
 
