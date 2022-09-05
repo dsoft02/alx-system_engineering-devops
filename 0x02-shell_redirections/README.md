@@ -9,4 +9,6 @@
 
 [3-twofiles](./3-twofiles) - script that display the content of /etc/passwd and /etc/hosts
 
+[4-lastlines](./4-lastlines) - script that display the last 10 lines of /etc/passwd
+
 
