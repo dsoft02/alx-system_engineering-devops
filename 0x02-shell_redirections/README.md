@@ -29,4 +29,6 @@
 
 [13-unique](./13-unique) - script that takes a list of words as input and prints only words that appear exactly once.
 
-.
+[14-findthatword](./14-findthatword) - script that display lines containing the pattern “root” from the file /etc/passwd
+
+
