@@ -13,8 +13,8 @@ sudo apt --fix-broken -y install
 
 sudo ufw allow 'Nginx HTTP'
 sudo service nginx start
-# Create a file containing the "Hello World!" message
-echo "Hello World!" | sudo tee /var/www/html/index.html
+# Create a file containing the errror message
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 printf %s "server {
     listen      80 default_server;
     listen      [::]:80 default_server;
@@ -24,11 +24,14 @@ printf %s "server {
 
     server_name _;
 
+	location /redirect_me {
+		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+	}
 
 
 
 }" > /etc/nginx/sites-available/default
 
-sudo sed -i '10i\\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}' /etc/nginx/sites-available/default
+sudo sed -i '14i\\terror_page 404 /404.html; \n\tlocation = /404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}' /etc/nginx/sites-available/default
 sudo service nginx restart
 
