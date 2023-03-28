@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Installs Nginx with the following configurations:
-#+    Listens on port 80.
-#+    Returns a page containing "Hello World!" when queried
-#++    at the root with a curl GET request.
+# Listens on port 80.
+# Returns a page containing "Hello World!" when queried
+# at the root with a curl GET request.
 
 # Update apt package index
-sudo apt update
+sudo apt-get -y update
 
 # Install Nginx
-sudo apt install nginx -y
+sudo apt-get -y install nginx
 
 # Configure Nginx to listen on port 80
 sudo sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
