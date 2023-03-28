@@ -1,3 +1,5 @@
+# This manifest installs ngix and adds redirect page
+
 # add stable version of nginx
 exec { 'add nginx stable repo':
   command => 'sudo add-apt-repository ppa:nginx/stable',
@@ -6,7 +8,7 @@ exec { 'add nginx stable repo':
 
 # update software packages list
 exec { 'update packages':
-  command => 'apt-get update',
+  command => 'sudo apt-get -y update',
   path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
 }
 
@@ -33,7 +35,7 @@ file { '/var/www/html/index.html':
   content => "Hello World!\n",
 }
 
-# create index file
+# create erorr 404 file
 file { '/var/www/html/404.html':
   content => "Ceci n'est pas une page\n",
 }
@@ -59,7 +61,7 @@ file { 'Nginx default config file':
         location  /404.html {
             internal;
         }
-        
+
         if (\$request_filename ~ redirect_me){
             rewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
         }
