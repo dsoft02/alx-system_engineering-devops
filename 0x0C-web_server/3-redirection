@@ -10,20 +10,10 @@ sudo apt-get -y upgrade
 # Install Nginx
 sudo apt-get -y install nginx
 
+sudo ufw allow 'Nginx HTTP'
 # Create a file containing the "Hello World!" message
 echo "Hello World!" | sudo tee /var/www/html/index.html
-printf %s "server {
-    listen 80;
-    listen [::]:80 default_server;
-    root   /var/www/html;
-    index  index.html index.htm;
-    location /redirect_me {
-        return 301 http://cuberule.com/;
-    }
-}"
-sudo service nginx start
-newlines="\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
-sudo sed -i "26i $newlines" /etc/nginx/sites-available/default
+sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
 # Restart Nginx
 sudo service nginx restart
