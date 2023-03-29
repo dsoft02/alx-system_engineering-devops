@@ -1,37 +1,18 @@
 #!/usr/bin/env bash
-# Configure a new Nginx server so that /redirect_me is redirecting to another page
-# The redirection must be a “301 Moved Permanently”
+#Configure your Nginx server to have a custom 404 page that contains the string
 
+sudo apt-get update
+sudo apt-get install -y nginx
 
-# Update apt package index
-sudo apt-get -y update
+# code to redirect a specific endpoint (eg: redirect /redirect_me to https://blog.alexgkinyanjui.com)
+echo "Hello World!" | sudo tee /var/www/html/index.html
+reflink="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+sudo sed -i "s/server_name _;/$reflink/" /etc/nginx/sites-available/default
 
-# Install Nginx
-sudo apt-get -y install nginx
-sudo apt-get -y install ufw
-sudo apt --fix-broken -y install
-
-sudo ufw allow 'Nginx HTTP'
-sudo service nginx start
-# Create a file containing the errror message
+# code to create error page and add a redirect for error 404
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
-printf %s "server {
-    listen      80 default_server;
-    listen      [::]:80 default_server;
+reflink2="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+sudo sed -i "s/listen 80 default_server;/$reflink2/" /etc/nginx/sites-available/default
 
-    root        /var/www/html;
-    index       index.html index.htm index.nginx-debian.html;
-
-    server_name _;
-
-	location /redirect_me {
-		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-	}
-
-
-
-}" > /etc/nginx/sites-available/default
-
-sudo sed -i '14i\\terror_page 404 /404.html; \n\tlocation = /404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}' /etc/nginx/sites-available/default
+# restart the server
 sudo service nginx restart
-
