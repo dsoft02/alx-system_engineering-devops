@@ -1,38 +1,35 @@
 #!/usr/bin/env bash
-# Configure a new Nginx server so that /redirect_me is redirecting to another page
-# The redirection must be a “301 Moved Permanently”
+# Installs, configures, and starts the server
 
-
-# Update apt package index
-sudo apt-get -y update
-
-# Install Nginx
+sudo apt-get update
 sudo apt-get -y install nginx
-sudo apt-get -y install ufw
-sudo apt --fix-broken -y install
 
 sudo ufw allow 'Nginx HTTP'
+
 sudo mkdir -p /var/www/html/
 sudo chmod -R 755 /var/www
-sudo service nginx start
-# Create a file containing the "Hello World!" message
-echo "Hello World!" | sudo tee /var/www/html/index.html
-printf %s "server {
-    listen      80 default_server;
-    listen      [::]:80 default_server;
 
-    root        /var/www/html;
-    index       index.html index.htm index.nginx-debian.html;
+echo 'Hello World!' > /var/www/html/index.html >/dev/null
 
-    server_name _;
+SERVER_CONFIG=\
+"server {
+	\tlisten 80 default_server;
+	\tlisten [::]:80 default_server;
 
-    location / {
-		try_files \$uri \$uri/ =404;
-	}
+	\troot /var/www/html;
+	\tindex index.html index.htm index.nginx-debian.html;
 
 
 
-}" > /etc/nginx/sites-available/default
+}"
 
-sudo sed -i '14i\\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}' /etc/nginx/sites-available/default
-sudo service nginx restart
+bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
+
+reflink="\\\tserver_name _;\n\n\tlocation / {\n\t\ttry_files \$uri \$uri/ =404;\n\t}\n\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}"
+sudo sed -i "8i$reflink" /etc/nginx/sites-available/default
+
+if [ "$(pgrep -c nginx)" -le 0 ]; then
+	sudo service nginx start
+else
+	sudo service nginx restart
+fi
