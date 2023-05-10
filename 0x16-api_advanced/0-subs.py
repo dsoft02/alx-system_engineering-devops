@@ -4,12 +4,11 @@ import json
 import requests
 
 
-def get_subscribers(subreddit):
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Softboi/0.0.1'}
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        data = response.json()
-        return data['data']['subscribers']
+def number_of_subscribers(subreddit):
+    user = {"User-Agent": "softboi/0.0.1"}
+    request = requests.get("https://www.reddit.com/r/{}/about.json"
+                           .format(subreddit), headers=user)
+    if request.status_code == 200:
+        return request.json().get("data").get("subscribers")
     else:
         return 0
