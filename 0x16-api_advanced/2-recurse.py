@@ -3,18 +3,26 @@
 import pprint
 import requests
 
+BASE_URL = 'http://reddit.com/r/{}/hot.json'
 
-def recurse(subreddit, hot_list=[]):
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    headers = {'User-Agent': 'Softboi/0.0.1'}
-    response = requests.get(url, headers=headers, params={'limit': 100})
-    if response.status_code == 200:
-        data = response.json()
-        for post in data['data']['children']:
-            hot_list.append(post['data']['title'])
-        if data['data']['after'] is not None:
-            recurse(subreddit, hot_list=hot_list, after=data['data']['after'])
+
+def recurse(subreddit, hot_list=[], after=None):
+    ''' function recurse :Get ALL hot posts'''
+    headers = {'User-agent': 'softboi/0.0.1'}
+    params = {'limit': 100}
+    if isinstance(after, str):
+        if after != "STOP":
+            params['after'] = after
         else:
             return hot_list
-    else:
+    response = requests.get(BASE_URL.format(subreddit),
+                            headers=headers, params=params)
+    if response.status_code != 200:
         return None
+    data = response.json().get('data', {})
+    after = data.get('after', 'STOP')
+    if not after:
+        after = "STOP"
+    hot_list = hot_list + [post.get('data', {}).get('title')
+                           for post in data.get('children', [])]
+    return recurse(subreddit, hot_list, after)
