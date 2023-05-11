@@ -1,5 +1,5 @@
 # incorrect file name
-file { '/var/www/html/wp-settings.php':
-  ensure  => file,
-  content => file('/var/www/html/wp-settings.php').content.gsub('class-wp-locale.phpp', 'class-wp-locale.php'),
+exec{ 'fix-wordpress':
+    command => 'sed -i \'s/class-wp-locale.phpp/class-wp-locale.php/g\' /var/www/html/wp-settings.php',
+    path    => '/usr/local/bin/:/bin/',
 }
