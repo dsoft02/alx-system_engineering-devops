@@ -9,7 +9,7 @@ def count_words(subreddit, word_list, after=None, counts=None):
         subreddit (str): The subreddit to search.
         word_list (list): The list of words to search for in post titles.
         after (str): The parameter for the next page of the API results.
-        counts (int): The parameter of results matched thus far.
+        counts (dict): The parameter of results matched thus far.
     """
     if counts is None:
         counts = {}
@@ -28,7 +28,7 @@ def count_words(subreddit, word_list, after=None, counts=None):
         for word in word_list:
             word = word.lower()
             if word in title.split():
-                counts[word] = counts.get(word, 0) + 1
+                counts[word] = counts.get(word, 0) + title.count(word)
 
     next_page = data['data']['after']
     if next_page:
