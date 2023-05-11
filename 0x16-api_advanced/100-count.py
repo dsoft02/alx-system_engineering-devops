@@ -2,9 +2,9 @@
 '''Get ALL articles for a given subreddit'''
 import requests
 
+
 def count_words(subreddit, word_list, after=None, counts=None):
     """Prints counts of given words found in hot posts of a given subreddit.
-
     Args:
         subreddit (str): The subreddit to search.
         word_list (list): The list of words to search for in post titles.
@@ -32,7 +32,8 @@ def count_words(subreddit, word_list, after=None, counts=None):
 
     next_page = data['data']['after']
     if next_page:
-        return count_words(subreddit, word_list, after=next_page, counts=counts)
+        return count_words(subreddit, word_list, after=next_page,
+                           counts=counts)
     else:
         sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
         for word, count in sorted_counts:
