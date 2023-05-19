@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 # Kill gunicorn worker processe gracefully, with no downtime
-supervisorctl status gunicorn | sed "s/.*[pid ]\([0-9]\+\)\,.*/\1/" | xargs kill -HUP
+pgrep gunicorn | xargs kill -HUP
+
