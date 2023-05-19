@@ -1,3 +1,22 @@
 #!/usr/bin/env bash
-# Kill gunicorn worker processe gracefully, with no downtime
-pgrep gunicorn | xargs kill -HUP
+# Restart Gunicorn worker processes gracefully, with no downtime
+
+# Get the PID of the Gunicorn master process using pgrep
+pgrep_gunicorn() {
+  pgrep gunicorn
+}
+
+# Send a SIGHUP signal to the Gunicorn master process
+reload_gunicorn() {
+  pids=$(pgrep_gunicorn)
+  if [[ -n $pids ]]; then
+    echo "Reloading Gunicorn gracefully..."
+    kill -HUP "$pids"
+    echo "OK"
+  else
+    echo "Gunicorn process not found."
+    echo "NOk"
+  fi
+}
+
+reload_gunicorn
