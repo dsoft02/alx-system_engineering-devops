@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-# Terminate gunicorn processes gracefully
-#   by sending HUP signal to master process
-
-sudo kill -HUP "$(pgrep -o gunicorn)"
+# Kill gunicorn worker processe gracefully, with no downtime
+supervisorctl status gunicorn | sed "s/.*[pid ]\([0-9]\+\)\,.*/\1/" | xargs kill -HUP
